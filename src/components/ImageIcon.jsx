@@ -1,0 +1,1 @@
+export default function ImageIcon({src,size=30,alt='',className=''}){return <img src={src} alt={alt} width={size} height={size} className={`object-contain ${className}`} onError={e=>{e.currentTarget.style.display='none'}}/>}

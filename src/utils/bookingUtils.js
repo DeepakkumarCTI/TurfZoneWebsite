@@ -1,0 +1,9 @@
+import {read,write,KEYS,uid} from './localStorage';
+export const slots=['06:00 AM – 07:00 AM','07:00 AM – 08:00 AM','08:00 AM – 09:00 AM','09:00 AM – 10:00 AM','04:00 PM – 05:00 PM','05:00 PM – 06:00 PM','06:00 PM – 07:00 PM','07:00 PM – 08:00 PM','08:00 PM – 09:00 PM','09:00 PM – 10:00 PM'];
+export function slotIndex(label){return slots.indexOf(label)}
+export function expandSlots(startIndex,duration){return slots.slice(startIndex,startIndex+duration)}
+export function isPast(date){return date < new Date().toISOString().slice(0,10)}
+export function bookedSlots(turfId,date,excludeId){return read(KEYS.bookings,[]).filter(b=>b.turfId===turfId&&b.date===date&&b.status!=='Cancelled'&&b.id!==excludeId).flatMap(b=>b.slots||[b.time])}
+export function availability(turfId,date,startIndex,duration,excludeId){if(!date||startIndex<0||startIndex+duration>slots.length)return false;const selected=expandSlots(startIndex,duration);const booked=bookedSlots(turfId,date,excludeId);return selected.every(s=>!booked.includes(s))}
+export function createBooking(payload){const bookings=read(KEYS.bookings,[]);const selected=expandSlots(payload.startIndex,payload.duration);if(!availability(payload.turfId,payload.date,payload.startIndex,payload.duration))return {ok:false,error:'One or more selected slots are no longer available.'};const booking={...payload,id:uid('TZB'),slots:selected,time:selected[0],status:'Confirmed',createdAt:new Date().toISOString()};bookings.push(booking);return write(KEYS.bookings,bookings)?{ok:true,booking}:{ok:false,error:'Booking could not be saved. Please try again.'}}
+export function cancelBooking(id){const bookings=read(KEYS.bookings,[]);const target=bookings.find(b=>b.id===id);if(!target||target.status==='Completed'||target.status==='Cancelled')return false;target.status='Cancelled';target.cancelledAt=new Date().toISOString();return write(KEYS.bookings,bookings)}
