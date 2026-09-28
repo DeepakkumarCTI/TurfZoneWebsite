@@ -40,23 +40,20 @@ export default function Footer() {
                 {/* Animated top line */}
                 <div className="relative h-[2px] w-full overflow-hidden bg-white/5">
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-lime-400/10 to-transparent" />
-
                     <div className="absolute top-0 h-full w-[20%] min-w-[120px] rounded-full bg-gradient-to-r from-transparent via-lime-400 to-transparent shadow-[0_0_14px_rgba(163,230,53,0.9)] animate-[footerLine_3.5s_linear_infinite]" />
-
                     <div className="absolute top-0 h-full w-[10%] min-w-[70px] rounded-full bg-gradient-to-r from-transparent via-yellow-300 to-transparent animate-[footerLine_5s_linear_infinite_1s]" />
                 </div>
 
                 {/* Main footer content */}
-                <div className="relative w-full px-3 py-6 sm:px-6 sm:py-10 lg:px-8">
-                    <div className="grid w-full grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 lg:gap-8">
-
-                        {/* Brand */}
-                        <div className="col-span-2 animate-[footerItem_0.7s_ease-out] sm:col-span-1">
+                <div className="relative mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+                    <div className="grid grid-cols-2 items-start gap-x-5 gap-y-8 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10 lg:grid-cols-4 lg:gap-10">
+                        {/* Brand and address */}
+                        <div className="col-span-2 min-w-0 sm:col-span-1 animate-[footerItem_0.7s_ease-out]">
                             <Link
                                 to="/"
                                 className="group inline-flex items-center gap-2.5 sm:gap-3"
                             >
-                                <div className="relative">
+                                <div className="relative shrink-0">
                                     <div className="absolute inset-0 rounded-full bg-lime-400/20 blur-2xl transition-all duration-500 group-hover:scale-125 group-hover:bg-lime-400/30" />
 
                                     <img
@@ -66,7 +63,7 @@ export default function Footer() {
                                     />
                                 </div>
 
-                                <div>
+                                <div className="min-w-0">
                                     <h2 className="font-display text-base font-extrabold tracking-tight text-white sm:text-lg">
                                         {company.name}
                                     </h2>
@@ -77,59 +74,118 @@ export default function Footer() {
                                 </div>
                             </Link>
 
-                            <p className="mt-2 max-w-sm text-xs leading-5 text-slate-400 sm:mt-4 sm:text-sm sm:leading-6">
+                            <p className="mt-3 max-w-sm text-xs leading-5 text-slate-400 sm:mt-4 sm:text-sm sm:leading-6">
                                 {company.description}
                             </p>
 
+                            {/* Address */}
+                            <div className="mt-4 flex items-start gap-3 sm:mt-5">
+                                
+
+                               
+                            </div>
+
                             {/* Social links */}
-                            <div className="mt-3 flex items-center gap-2 sm:mt-5 sm:gap-2.5">
-                                <a
-                                    href="#"
-                                    aria-label="Instagram"
-                                    className="group flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:rotate-3 hover:border-lime-400/30 hover:bg-lime-400 hover:text-slate-950 hover:shadow-[0_0_20px_rgba(163,230,53,0.25)] sm:h-9 sm:w-9 sm:rounded-xl"
-                                >
-                                    <svg viewBox="0 0 24 24" className="h-4 w-4 sm:h-[18px] sm:w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8">
-                                        <rect x="3" y="3" width="18" height="18" rx="5" />
-                                        <circle cx="12" cy="12" r="4" />
-                                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                                    </svg>
-                                </a>
+                            {/* Social Links */}
+                            <div className="mt-5">
+                                <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white">
+                                    Follow Us
+                                </h4>
 
-                                <a
-                                    href="#"
-                                    aria-label="Facebook"
-                                    className="group flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:-rotate-3 hover:border-lime-400/30 hover:bg-lime-400 hover:text-slate-950 hover:shadow-[0_0_20px_rgba(163,230,53,0.25)] sm:h-9 sm:w-9 sm:rounded-xl"
-                                >
-                                    <svg viewBox="0 0 24 24" className="h-4 w-4 sm:h-[18px] sm:w-[18px]" fill="currentColor">
-                                        <path d="M14 8h3V4h-3c-3.31 0-5 1.69-5 5v3H6v4h3v6h4v-6h3.2l.8-4H13V9c0-.67.33-1 1-1Z" />
-                                    </svg>
-                                </a>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {/* Instagram */}
+                                    <a
+                                        href="https://www.instagram.com/"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        aria-label="Instagram"
+                                        className="flex min-w-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-sm text-gray-300 transition hover:border-pink-400/40 hover:bg-pink-500/10 hover:text-white"
+                                    >
+                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400">
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="1.8"
+                                                className="h-5 w-5 text-white"
+                                                aria-hidden="true"
+                                            >
+                                                <rect x="3" y="3" width="18" height="18" rx="5" />
+                                                <circle cx="12" cy="12" r="4" />
+                                                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                                            </svg>
+                                        </span>
+                                        <span className="truncate">Instagram</span>
+                                    </a>
 
-                                <a
-                                    href="#"
-                                    aria-label="WhatsApp"
-                                    className="group flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:rotate-3 hover:border-lime-400/30 hover:bg-lime-400 hover:text-slate-950 hover:shadow-[0_0_20px_rgba(163,230,53,0.25)] sm:h-9 sm:w-9 sm:rounded-xl"
-                                >
-                                    <svg viewBox="0 0 24 24" className="h-4 w-4 sm:h-[18px] sm:w-[18px]" fill="none" stroke="currentColor" strokeWidth="1.8">
-                                        <path d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.4-4.1A8 8 0 1 1 20 11.5Z" />
-                                        <path d="M9 8.5c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.6 1.4c.1.2.1.4-.1.6l-.5.6c-.1.1-.1.3 0 .5.5.9 1.3 1.6 2.2 2.1.2.1.4.1.5-.1l.6-.7c.1-.2.4-.2.6-.1l1.4.7c.2.1.3.3.2.6-.2.8-.8 1.3-1.6 1.4-1.3.1-3.1-.7-4.5-2-1.3-1.2-2.1-2.6-2.3-3.7-.1-.5.1-1 .5-1.3Z" />
-                                    </svg>
-                                </a>
+                                    {/* Facebook */}
+                                    <a
+                                        href="https://www.facebook.com/"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        aria-label="Facebook"
+                                        className="flex min-w-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-sm text-gray-300 transition hover:border-blue-400/40 hover:bg-blue-500/10 hover:text-white"
+                                    >
+                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-600">
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                className="h-5 w-5 text-white"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M13.4 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.7V3.6c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3v2.1H7.2V13H10v8h3.4Z" />
+                                            </svg>
+                                        </span>
+                                        <span className="truncate">Facebook</span>
+                                    </a>
 
-                                <a
-                                    href="#"
-                                    aria-label="X"
-                                    className="group flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-slate-400 transition-all duration-300 hover:-translate-y-1 hover:-rotate-3 hover:border-lime-400/30 hover:bg-lime-400 hover:text-slate-950 hover:shadow-[0_0_20px_rgba(163,230,53,0.25)] sm:h-9 sm:w-9 sm:rounded-xl"
-                                >
-                                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="currentColor">
-                                        <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-6.39L6.49 22H3.38l7.24-8.28L2.8 2h6.4l4.42 5.84L18.9 2Zm-1.1 17.86h1.73L8.27 4.04H6.41L17.8 19.86Z" />
-                                    </svg>
-                                </a>
+                                    {/* YouTube */}
+                                    <a
+                                        href="https://www.youtube.com/"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        aria-label="YouTube"
+                                        className="flex min-w-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-sm text-gray-300 transition hover:border-red-400/40 hover:bg-red-500/10 hover:text-white"
+                                    >
+                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-600">
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                className="h-5 w-5 text-white"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.7 15.3V8.7l5.8 3.3-5.8 3.3Z" />
+                                            </svg>
+                                        </span>
+                                        <span className="truncate">YouTube</span>
+                                    </a>
+
+                                    {/* LinkedIn */}
+                                    <a
+                                        href="https://www.linkedin.com/"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        aria-label="LinkedIn"
+                                        className="flex min-w-0 items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-sm text-gray-300 transition hover:border-sky-400/40 hover:bg-sky-500/10 hover:text-white"
+                                    >
+                                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-sky-600">
+                                            <svg
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                className="h-5 w-5 text-white"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M5.2 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3.5 9h3.4v11H3.5V9Zm5.5 0h3.2v1.5h.1A3.5 3.5 0 0 1 15.5 8c3.5 0 4.2 2.3 4.2 5.2V20h-3.4v-6c0-1.4 0-3.2-2-3.2s-2.3 1.5-2.3 3.1V20H9V9Z" />
+                                            </svg>
+                                        </span>
+                                        <span className="truncate">LinkedIn</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
                         {/* Quick links */}
-                        <div className="animate-[footerItem_0.7s_ease-out_0.1s_both]">
+                        <div className="min-w-0 animate-[footerItem_0.7s_ease-out_0.1s_both]">
                             <h3 className="mb-3 font-display text-sm font-bold text-white sm:mb-4 sm:text-base">
                                 Quick Links
                             </h3>
@@ -149,7 +205,7 @@ export default function Footer() {
                         </div>
 
                         {/* Sports */}
-                        <div className="animate-[footerItem_0.7s_ease-out_0.2s_both]">
+                        <div className="min-w-0 animate-[footerItem_0.7s_ease-out_0.2s_both]">
                             <h3 className="mb-3 font-display text-sm font-bold text-white sm:mb-4 sm:text-base">
                                 Our Sports
                             </h3>
@@ -168,30 +224,42 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        {/* Play with us */}
-                        <div className="col-span-2 animate-[footerItem_0.7s_ease-out_0.3s_both] sm:col-span-1">
+                        {/* Contact Us */}
+                        <div className="col-span-2 min-w-0 animate-[footerItem_0.7s_ease-out_0.3s_both] sm:col-span-1">
                             <h3 className="mb-3 font-display text-sm font-bold text-white sm:mb-4 sm:text-base">
-                                Play With Us
+                                Contact Us
                             </h3>
 
-                            <div className="group relative h-28 w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-[0_10px_35px_rgba(0,0,0,0.25)] sm:h-40">
-                                <img
-                                    src="/images/footer-turf.jpg"
-                                    alt="TurfZone"
-                                    className="h-full w-full object-cover transition-all duration-700 group-hover:scale-110"
-                                />
+                            <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-3 sm:p-4">
+                                <div className="flex items-start gap-3">
+                                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-lime-400/20 bg-lime-400/10 text-lime-300">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            className="h-4 w-4"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="1.7"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+                                            <circle cx="12" cy="10" r="2.5" />
+                                        </svg>
+                                    </div>
 
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-
-                                <div className="absolute -bottom-10 -left-10 h-24 w-24 rounded-full bg-lime-400/20 blur-2xl transition-all duration-500 group-hover:scale-150" />
-
-                                <div className="absolute bottom-3 left-3 right-3">
-                                    <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-lime-300 sm:text-xs">
-                                        TurfZone
-                                    </p>
-                                    <p className="mt-1 text-xs font-semibold text-white sm:text-sm">
-                                        Book. Play. Enjoy.
-                                    </p>
+                                    <div className="min-w-0">
+                                        <h4 className="text-xs font-bold text-white sm:text-sm">
+                                            Our Location
+                                        </h4>
+                                        <address className="mt-1 break-words text-xs not-italic leading-5 text-slate-400 sm:text-sm sm:leading-6">
+                                            Sungam Main Road,
+                                            <br />
+                                            Coimbatore,
+                                            <br />
+                                            Tamil Nadu, 654345, India
+                                        </address>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -199,18 +267,14 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom bar */}
-
-
                 <div className="relative w-full border-t border-white/10">
-                    {/* Animated top border */}
                     <div className="absolute left-0 top-0 h-px w-full overflow-hidden">
                         <div className="absolute top-0 h-full w-32 bg-gradient-to-r from-transparent via-lime-400 to-transparent animate-[footerBottomLine_4s_linear_infinite]" />
                     </div>
 
-                    {/* Centered footer content */}
                     <div className="relative flex w-full flex-col items-center justify-center gap-2 px-3 py-3 text-center sm:px-6 sm:py-4 lg:px-8">
                         <p className="text-center text-[10px] leading-4 text-slate-500 sm:text-[11px]">
-                            © 2026 {company.name}. Frontend booking simulation using Local Storage.
+                            © 2026 {company.name}. Frontend booking simulation.
                         </p>
 
                         <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
@@ -338,7 +402,6 @@ function AnimateModal({ type, close }) {
                         <p className="text-[10px] font-black uppercase tracking-[0.2em] text-lime-300">
                             {company.name}
                         </p>
-
                         <h2 className="mt-1 font-display text-lg font-bold sm:text-2xl">
                             {privacy ? "Privacy Policy" : "Terms & Conditions"}
                         </h2>
@@ -467,7 +530,6 @@ function PolicySection({ title, children }) {
             <h3 className="font-display text-xs font-bold text-white sm:text-base">
                 {title}
             </h3>
-
             <p className="mt-1.5">
                 {children}
             </p>
