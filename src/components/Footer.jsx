@@ -257,6 +257,9 @@ export default function Footer() {
                                             <br />
                                             Coimbatore,
                                             <br />
+                                            
+                                           +91 987654321
+                                            <br />
                                             Tamil Nadu, 654345, India
                                         </address>
                                     </div>
