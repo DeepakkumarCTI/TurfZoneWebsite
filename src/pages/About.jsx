@@ -39,15 +39,19 @@ const values = [
 
 export default function About() {
     return (
-        <main className="overflow-hidden bg-slate-50 pt-19 sm:20">
-            {/* =====================================================
-                HERO
-            ===================================================== */}
-            <section className="relative isolate overflow-hidden bg-slate-950 px-4 pb-8 pt-15 text-white sm:px-6 sm:pb-16 sm:pt-28 lg:px-8 lg:pb-20">
-                {/* Background effects */}
-                <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-lime-400/15 blur-3xl sm:h-96 sm:w-96" />
-                <div className="pointer-events-none absolute -bottom-24 left-[20%] h-64 w-64 rounded-full bg-blue-500/15 blur-3xl sm:h-96 sm:w-96" />
+        <main className="overflow-hidden bg-slate-50 pt-[76px] sm:pt-[82px]">
+            
 
+            {/* =====================================================
+    RESPONSIVE HERO SECTION
+===================================================== */}
+            <section className="relative isolate -mt-[76px] overflow-hidden bg-slate-950 px-4 pb-10 pt-[108px] text-white sm:-mt-[82px] sm:px-6 sm:pb-14 sm:pt-[130px] lg:px-20 lg:pb-16 lg:pt-[130px]">
+                {/* Background effects */}
+                <div className="pointer-events-none absolute -right-20 -top-10 h-56 w-56 rounded-full bg-lime-400/15 blur-3xl sm:h-96 sm:w-96" />
+
+                <div className="pointer-events-none absolute -bottom-20 left-[10%] h-56 w-56 rounded-full bg-blue-500/15 blur-3xl sm:bottom-0 sm:left-[20%] sm:h-96 sm:w-96" />
+
+                {/* Background grid */}
                 <div
                     className="pointer-events-none absolute inset-0 opacity-20"
                     style={{
@@ -57,36 +61,45 @@ export default function About() {
                     }}
                 />
 
-                <div className="relative mx-auto grid max-w-7xl items-center gap-6 sm:gap-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-10">
+                <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-8 sm:gap-10 lg:grid-cols-[1.1fr_.9fr] lg:gap-12">
 
                     {/* About Content */}
-                    <div>
-                        <div className="inline-flex items-center gap-2 rounded-full border border-lime-300/20 bg-lime-300/10 px-3 py-1.5 sm:py-2">
-                            <span className="h-2 w-2 animate-pulse rounded-full bg-lime-300" />
+                    <div className="relative z-10 min-w-0">
 
-                            <p className="text-[10px] font-black uppercase tracking-[.2em] text-lime-300 sm:text-xs">
+                        {/* Label */}
+                        <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-lime-300/20 bg-lime-300/10 px-3 py-2">
+                            <span className="h-2 w-2 shrink-0 animate-pulse rounded-full bg-lime-300" />
+
+                            <p className="text-[10px] font-black uppercase tracking-[.15em] text-lime-300 sm:text-xs sm:tracking-[.2em]">
                                 About {company.shortName}
                             </p>
                         </div>
 
-                        <h1 className="mt-4 font-display text-3xl font-black leading-tight sm:mt-5 sm:text-5xl lg:text-6xl">
+                        {/* Heading */}
+                        <h1 className="mt-5 max-w-3xl break-words font-display text-[clamp(2rem,8vw,3.5rem)] font-black leading-[1.08] tracking-tight sm:mt-6 sm:text-5xl sm:leading-tight lg:text-6xl">
                             One company.
                             <br />
+
                             <span className="bg-gradient-to-r from-lime-300 via-yellow-300 to-orange-400 bg-clip-text text-transparent">
                                 One arena.
                             </span>
+
                             <br />
+
                             More game time.
                         </h1>
 
-                        <p className="mt-4 max-w-2xl text-xs leading-6 text-slate-300 sm:mt-5 sm:text-base sm:leading-7">
+                        {/* Description */}
+                        <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-300 sm:mt-5 sm:text-base sm:leading-7">
                             {company.description}
                         </p>
 
-                        <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3">
+                        {/* Buttons */}
+                        <div className="mt-6 flex flex-col gap-3 min-[380px]:flex-row sm:mt-7">
+
                             <Link
                                 to="/explore"
-                                className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-lime-400 to-yellow-300 px-4 py-2.5 text-xs font-black text-slate-950 shadow-lg shadow-lime-400/10 transition duration-300 hover:-translate-y-1 hover:shadow-lime-400/25 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm"
+                                className="group inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-lime-400 to-yellow-300 px-5 py-3 text-sm font-black text-slate-950 shadow-lg shadow-lime-400/10 transition duration-300 hover:-translate-y-1 hover:shadow-lime-400/25 min-[380px]:w-auto sm:px-6"
                             >
                                 Explore Our Turf
 
@@ -97,37 +110,52 @@ export default function About() {
 
                             <Link
                                 to="/contact"
-                                className="rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-xs font-bold text-white backdrop-blur transition duration-300 hover:border-sky-300/40 hover:bg-sky-400/10 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm"
+                                className="inline-flex min-h-12 w-full items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white backdrop-blur transition duration-300 hover:border-sky-300/40 hover:bg-sky-400/10 min-[380px]:w-auto sm:px-6"
                             >
                                 Contact Us
                             </Link>
+
                         </div>
                     </div>
 
-                    {/* Hero Visual */}
-                    <div className="relative mx-auto mt-2 w-full max-w-xl lg:mt-0">
-                        <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-lime-400/30 via-sky-400/20 to-orange-400/30 blur-xl" />
+                    {/* Hero Image */}
+                    <div className="relative mx-auto mt-2 w-full min-w-0 max-w-xl lg:mt-0">
 
-                        <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-slate-900 p-2 shadow-2xl sm:rounded-3xl sm:p-3">
-                            <img
-                                src="/images/about-hero.jpg"
-                                alt="TurfZone sports facility"
-                                className="h-48 w-full rounded-xl object-cover sm:h-64 sm:rounded-2xl lg:h-[300px]"
-                            />
+                        {/* Image Glow */}
+                        <div className="absolute -inset-2 rounded-[1.5rem] bg-gradient-to-br from-lime-400/30 via-sky-400/20 to-orange-400/30 blur-xl sm:-inset-3 sm:rounded-[2rem]" />
 
-                            <div className="absolute inset-x-2 bottom-2 rounded-b-xl bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-transparent p-3 pt-12 sm:inset-x-3 sm:bottom-3 sm:rounded-b-2xl sm:p-5 sm:pt-16">
-                                <p className="text-[10px] font-black uppercase tracking-[.2em] text-lime-300 sm:text-xs">
-                                    Your game starts here
-                                </p>
+                        {/* Image Card */}
+                        <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-slate-900 p-1.5 shadow-2xl sm:rounded-3xl sm:p-3">
 
-                                <p className="mt-1 font-display text-lg font-bold text-white sm:text-2xl">
-                                    Play. Book. Enjoy.
-                                </p>
+                            <div className="relative overflow-hidden rounded-xl sm:rounded-2xl">
+
+                                <img
+                                    src="/images/about-hero.jpg"
+                                    alt="TurfZone sports facility"
+                                    className="h-52 w-full object-cover object-center sm:h-64 lg:h-[300px]"
+                                />
+
+                                {/* Image Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/10 to-transparent" />
+
+                                {/* Image Text */}
+                                <div className="absolute inset-x-0 bottom-0 p-4 pt-10 sm:p-5 sm:pt-16">
+
+                                    <p className="text-[9px] font-black uppercase tracking-[.18em] text-lime-300 sm:text-xs sm:tracking-[.2em]">
+                                        Your game starts here
+                                    </p>
+
+                                    <p className="mt-1 font-display text-lg font-bold text-white sm:text-2xl">
+                                        Play. Book. Enjoy.
+                                    </p>
+
+                                </div>
                             </div>
                         </div>
 
                         {/* Floating Badge */}
-                        <div className="absolute -bottom-3 -left-1 rounded-xl border border-lime-300/20 bg-slate-900/95 px-3 py-2 shadow-xl sm:-left-4 sm:px-4 sm:py-3">
+                        <div className="absolute -bottom-4 left-3 z-10 rounded-xl border border-lime-300/20 bg-slate-900/95 px-3 py-2 shadow-xl sm:-bottom-5 sm:-left-4 sm:px-4 sm:py-3">
+
                             <p className="text-[10px] font-semibold text-slate-400 sm:text-xs">
                                 Made for players
                             </p>
@@ -135,8 +163,10 @@ export default function About() {
                             <p className="text-xs font-black text-lime-300 sm:text-sm">
                                 Every game matters
                             </p>
+
                         </div>
                     </div>
+
                 </div>
             </section>
 
