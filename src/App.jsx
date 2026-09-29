@@ -1,4 +1,6 @@
 
+import { useState, useEffect } from "react";
+
 import {
     BrowserRouter,
     Routes,
@@ -6,13 +8,13 @@ import {
     Navigate,
     useLocation,
 } from "react-router-dom";
-import { useEffect } from "react";
 
 import { AppProvider, useApp } from "./context/AppContext";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import WhatsAppButton from "./components/WhatsAppButton";
+import LoadingScreen from "./components/LoadingScreen";
 
 import Home from "./pages/Home";
 import ExploreTurfs from "./pages/ExploreTurfs";
@@ -31,6 +33,10 @@ import ManageTurfs from "./admin/ManageTurfs";
 import ManageBookings from "./admin/ManageBookings";
 import ManageEnquiries from "./admin/ManageEnquiries";
 
+/* =====================================================
+   PROTECTED ADMIN ROUTE
+===================================================== */
+
 function Protected() {
     const { admin } = useApp();
 
@@ -41,11 +47,15 @@ function Protected() {
     );
 }
 
+/* =====================================================
+   MAIN WEBSITE LAYOUT
+===================================================== */
+
 function Shell() {
     const loc = useLocation();
     const isAdmin = loc.pathname.startsWith("/admin");
 
-    // Scroll to the top whenever the page route changes
+    // Scroll to the top whenever the route changes
     useEffect(() => {
         window.scrollTo({
             top: 0,
@@ -59,30 +69,84 @@ function Shell() {
             {!isAdmin && <Navbar />}
 
             <Routes>
+                {/* Customer Pages */}
                 <Route path="/" element={<Home />} />
-                <Route path="/explore" element={<ExploreTurfs />} />
-                <Route path="/turf/:id" element={<TurfDetails />} />
-                <Route path="/sports" element={<SportsCategories />} />
-                <Route path="/bookings" element={<MyBookings />} />
+
+                <Route
+                    path="/explore"
+                    element={<ExploreTurfs />}
+                />
+
+                <Route
+                    path="/turf/:id"
+                    element={<TurfDetails />}
+                />
+
+                <Route
+                    path="/sports"
+                    element={<SportsCategories />}
+                />
+
+                <Route
+                    path="/bookings"
+                    element={<MyBookings />}
+                />
+
                 <Route
                     path="/booking-confirmation/:id"
                     element={<BookingConfirmation />}
                 />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
 
-                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route
+                    path="/about"
+                    element={<About />}
+                />
 
-                <Route path="/admin" element={<Protected />}>
-                    <Route index element={<AdminDashboard />} />
-                    <Route path="turfs" element={<ManageTurfs />} />
-                    <Route path="bookings" element={<ManageBookings />} />
-                    <Route path="enquiries" element={<ManageEnquiries />} />
+                <Route
+                    path="/contact"
+                    element={<Contact />}
+                />
+
+                {/* Admin Login */}
+                <Route
+                    path="/admin/login"
+                    element={<AdminLogin />}
+                />
+
+                {/* Protected Admin Routes */}
+                <Route
+                    path="/admin"
+                    element={<Protected />}
+                >
+                    <Route
+                        index
+                        element={<AdminDashboard />}
+                    />
+
+                    <Route
+                        path="turfs"
+                        element={<ManageTurfs />}
+                    />
+
+                    <Route
+                        path="bookings"
+                        element={<ManageBookings />}
+                    />
+
+                    <Route
+                        path="enquiries"
+                        element={<ManageEnquiries />}
+                    />
                 </Route>
 
-                <Route path="*" element={<NotFound />} />
+                {/* 404 Page */}
+                <Route
+                    path="*"
+                    element={<NotFound />}
+                />
             </Routes>
 
+            {/* Customer Footer */}
             {!isAdmin && (
                 <>
                     <Footer />
@@ -93,11 +157,23 @@ function Shell() {
     );
 }
 
+/* =====================================================
+   APP COMPONENT WITH LOADING SCREEN
+===================================================== */
+
 export default function App() {
+    const [isLoading, setIsLoading] = useState(true);
+
     return (
         <BrowserRouter>
             <AppProvider>
-                <Shell />
+                {isLoading ? (
+                    <LoadingScreen
+                        onComplete={() => setIsLoading(false)}
+                    />
+                ) : (
+                    <Shell />
+                )}
             </AppProvider>
         </BrowserRouter>
     );
