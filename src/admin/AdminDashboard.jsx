@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useApp } from "../context/AppContext";
@@ -25,7 +24,13 @@ const statusColors = {
 export default function AdminDashboard() {
   const { turfs, bookings, enquiries } = useApp();
 
-  const eligible = bookings.filter((booking) => booking.status !== "Cancelled");
+  const safeTurfs = Array.isArray(turfs) ? turfs : [];
+  const safeBookings = Array.isArray(bookings) ? bookings : [];
+  const safeEnquiries = Array.isArray(enquiries) ? enquiries : [];
+
+  const eligible = safeBookings.filter(
+    (booking) => booking.status !== "Cancelled"
+  );
 
   const revenue = eligible.reduce(
     (total, booking) => total + Number(booking.total || 0),
@@ -35,45 +40,57 @@ export default function AdminDashboard() {
   const cards = [
     {
       name: "Total Turfs",
-      value: turfs.length,
+      value: safeTurfs.length,
       description: "Turf venues listed",
       accent: "from-lime-400 to-emerald-500",
       code: "TF",
+      path: "/admin/turfs",
     },
     {
       name: "Total Bookings",
-      value: bookings.length,
+      value: safeBookings.length,
       description: "All reservations",
       accent: "from-cyan-400 to-blue-500",
       code: "BK",
+      path: "/admin/bookings",
     },
     {
       name: "Pending Bookings",
-      value: bookings.filter((booking) => booking.status === "Pending").length,
+      value: safeBookings.filter(
+        (booking) => booking.status === "Pending"
+      ).length,
       description: "Awaiting confirmation",
       accent: "from-amber-400 to-orange-500",
       code: "PD",
+      path: "/admin/bookings",
     },
     {
       name: "Confirmed Bookings",
-      value: bookings.filter((booking) => booking.status === "Confirmed").length,
+      value: safeBookings.filter(
+        (booking) => booking.status === "Confirmed"
+      ).length,
       description: "Ready to play",
       accent: "from-emerald-400 to-teal-500",
       code: "CF",
+      path: "/admin/bookings",
     },
     {
       name: "Cancelled Bookings",
-      value: bookings.filter((booking) => booking.status === "Cancelled").length,
+      value: safeBookings.filter(
+        (booking) => booking.status === "Cancelled"
+      ).length,
       description: "Cancelled reservations",
       accent: "from-rose-400 to-pink-500",
       code: "CX",
+      path: "/admin/bookings",
     },
     {
       name: "Total Enquiries",
-      value: enquiries.length,
+      value: safeEnquiries.length,
       description: "Customer messages",
       accent: "from-violet-400 to-purple-500",
       code: "EN",
+      path: "/admin/enquiries",
     },
     {
       name: "Eligible Revenue",
@@ -81,10 +98,11 @@ export default function AdminDashboard() {
       description: "Excludes cancelled bookings",
       accent: "from-lime-400 to-cyan-400",
       code: "₹",
+      path: "/admin/bookings",
     },
   ];
 
-  const recentBookings = bookings.slice(-6).reverse();
+  const recentBookings = safeBookings.slice(-6).reverse();
 
   const statusItems = ["Confirmed", "Pending", "Cancelled", "Completed"];
 
@@ -134,7 +152,7 @@ export default function AdminDashboard() {
               Active venues
             </p>
             <p className="mt-1 font-display text-xl font-black sm:text-2xl">
-              {turfs.length}
+              {safeTurfs.length}
             </p>
           </div>
 
@@ -143,7 +161,7 @@ export default function AdminDashboard() {
               Total reservations
             </p>
             <p className="mt-1 font-display text-xl font-black sm:text-2xl">
-              {bookings.length}
+              {safeBookings.length}
             </p>
           </div>
 
@@ -177,45 +195,56 @@ export default function AdminDashboard() {
 
         <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
           {cards.map((card, index) => (
-            <motion.article
+            <Link
               key={card.name}
-              custom={index}
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover={{ y: -4 }}
-              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm transition-shadow duration-300 hover:shadow-lg sm:rounded-3xl sm:p-5"
+              to={card.path}
+              aria-label={`Open ${card.name}`}
+              className="block min-w-0 rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-lime-500 focus-visible:ring-offset-2 sm:rounded-3xl"
             >
-              <div
-                className={`absolute left-0 top-0 h-1 w-full bg-gradient-to-r ${card.accent}`}
-              />
+              <motion.article
+                custom={index}
+                variants={cardVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ y: -4, scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                className="group relative h-full cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm transition-shadow duration-300 hover:border-lime-300 hover:shadow-lg sm:rounded-3xl sm:p-5"
+              >
+                <div
+                  className={`absolute left-0 top-0 h-1 w-full bg-gradient-to-r ${card.accent}`}
+                />
 
-              <div className="flex items-start justify-between gap-2">
-                <p className="text-[9px] font-black uppercase leading-4 tracking-wide text-slate-400 sm:text-xs">
-                  {card.name}
+                <div className="flex items-start justify-between gap-2">
+                  <p className="text-[9px] font-black uppercase leading-4 tracking-wide text-slate-400 sm:text-xs">
+                    {card.name}
+                  </p>
+
+                  <div
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${card.accent} text-[10px] font-black text-slate-950 shadow-sm sm:h-10 sm:w-10 sm:text-xs`}
+                  >
+                    {card.code}
+                  </div>
+                </div>
+
+                <p className="mt-3 break-words font-display text-xl font-black tracking-tight text-slate-950 sm:mt-5 sm:text-3xl">
+                  {card.value}
                 </p>
 
-                <div
-                  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${card.accent} text-[10px] font-black text-slate-950 shadow-sm sm:h-10 sm:w-10 sm:text-xs`}
-                >
-                  {card.code}
+                <p className="mt-1 text-[10px] leading-4 text-slate-500 sm:text-xs">
+                  {card.description}
+                </p>
+
+                <div className="mt-3 h-1 overflow-hidden rounded-full bg-slate-100 sm:mt-4">
+                  <div
+                    className={`h-full w-1/3 rounded-full bg-gradient-to-r ${card.accent} transition-all duration-500 group-hover:w-full`}
+                  />
                 </div>
-              </div>
 
-              <p className="mt-3 break-words font-display text-xl font-black tracking-tight text-slate-950 sm:mt-5 sm:text-3xl">
-                {card.value}
-              </p>
-
-              <p className="mt-1 text-[10px] leading-4 text-slate-500 sm:text-xs">
-                {card.description}
-              </p>
-
-              <div className="mt-3 h-1 overflow-hidden rounded-full bg-slate-100 sm:mt-4">
-                <div
-                  className={`h-full w-1/3 rounded-full bg-gradient-to-r ${card.accent} transition-all duration-500 group-hover:w-full`}
-                />
-              </div>
-            </motion.article>
+                <p className="mt-3 text-[10px] font-bold text-lime-700 opacity-0 transition-opacity group-hover:opacity-100 sm:text-xs">
+                  View details →
+                </p>
+              </motion.article>
+            </Link>
           ))}
         </div>
       </section>
@@ -243,7 +272,7 @@ export default function AdminDashboard() {
             </div>
 
             <div className="flex h-9 min-w-9 items-center justify-center rounded-xl bg-lime-100 px-2 text-xs font-black text-lime-800 sm:h-11 sm:min-w-11 sm:text-sm">
-              {bookings.length}
+              {safeBookings.length}
             </div>
           </div>
 
@@ -251,7 +280,7 @@ export default function AdminDashboard() {
             {recentBookings.length > 0 ? (
               recentBookings.map((booking, index) => (
                 <motion.div
-                  key={booking.id}
+                  key={booking.id ?? `${booking.date}-${index}`}
                   initial={{ opacity: 0, x: 12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{
@@ -262,17 +291,17 @@ export default function AdminDashboard() {
                 >
                   <div className="min-w-0">
                     <p className="truncate text-xs font-black text-slate-900 sm:text-sm">
-                      {booking.turfName}
+                      {booking.turfName || "Turf booking"}
                     </p>
 
                     <p className="mt-1 truncate text-[10px] text-slate-500 sm:text-xs">
-                      {booking.date}
+                      {booking.date || "Date not available"}
                       <span className="mx-1">·</span>
-                      {booking.sport}
+                      {booking.sport || "Sport not specified"}
                     </p>
 
                     <p className="mt-1 truncate text-[9px] font-bold text-slate-400 sm:text-[10px]">
-                      {booking.id}
+                      {booking.id || "Booking ID unavailable"}
                     </p>
                   </div>
 
@@ -291,7 +320,7 @@ export default function AdminDashboard() {
                               : "bg-slate-200 text-slate-600"
                         }`}
                     >
-                      {booking.status}
+                      {booking.status || "Unknown"}
                     </span>
                   </div>
                 </motion.div>
@@ -299,11 +328,15 @@ export default function AdminDashboard() {
             ) : (
               <div className="rounded-2xl border border-dashed border-slate-200 px-4 py-12 text-center">
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-lime-100">
-                  <span className="text-sm font-black text-lime-800">BK</span>
+                  <span className="text-sm font-black text-lime-800">
+                    BK
+                  </span>
                 </div>
+
                 <h3 className="mt-3 text-sm font-black text-slate-900">
                   No bookings yet
                 </h3>
+
                 <p className="mt-1 text-xs leading-5 text-slate-500">
                   New turf reservations will appear here.
                 </p>
@@ -325,21 +358,23 @@ export default function AdminDashboard() {
             <p className="text-[10px] font-black uppercase tracking-[0.16em] text-lime-300 sm:text-xs">
               Reservation insights
             </p>
+
             <h2 className="mt-1 font-display text-lg font-black sm:text-xl">
               Booking Status
             </h2>
+
             <p className="mt-1 text-[10px] text-slate-400 sm:text-xs">
               Current booking distribution
             </p>
 
             <div className="mt-6 space-y-5">
               {statusItems.map((status) => {
-                const count = bookings.filter(
+                const count = safeBookings.filter(
                   (booking) => booking.status === status
                 ).length;
 
-                const percentage = bookings.length
-                  ? Math.round((count / bookings.length) * 100)
+                const percentage = safeBookings.length
+                  ? Math.round((count / safeBookings.length) * 100)
                   : 0;
 
                 return (
@@ -347,9 +382,9 @@ export default function AdminDashboard() {
                     <div className="mb-2 flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2">
                         <span
-                          className={`h-2.5 w-2.5 rounded-full bg-gradient-to-r ${statusColors[status]
-                            }`}
+                          className={`h-2.5 w-2.5 rounded-full bg-gradient-to-r ${statusColors[status]}`}
                         />
+
                         <span className="text-xs font-semibold text-slate-300">
                           {status}
                         </span>
@@ -368,8 +403,7 @@ export default function AdminDashboard() {
                           duration: 0.7,
                           delay: 0.15,
                         }}
-                        className={`h-full rounded-full bg-gradient-to-r ${statusColors[status]
-                          }`}
+                        className={`h-full rounded-full bg-gradient-to-r ${statusColors[status]}`}
                       />
                     </div>
 
@@ -381,17 +415,36 @@ export default function AdminDashboard() {
               })}
             </div>
 
-            <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-3">
-              <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
-                Total enquiries
+            {/* Clickable enquiries panel */}
+            <Link
+              to="/admin/enquiries"
+              aria-label="View all customer enquiries"
+              className="group mt-6 block rounded-xl border border-white/10 bg-white/5 p-3 transition duration-300 hover:-translate-y-1 hover:border-lime-300/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime-400"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-wide text-slate-400">
+                    Total enquiries
+                  </p>
+
+                  <p className="mt-1 font-display text-2xl font-black text-white">
+                    {safeEnquiries.length}
+                  </p>
+
+                  <p className="mt-1 text-[10px] leading-4 text-slate-400">
+                    Customer messages saved in the system.
+                  </p>
+                </div>
+
+                <span className="text-sm font-bold text-lime-300 transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </div>
+
+              <p className="mt-3 text-[10px] font-bold text-lime-300">
+                View enquiries
               </p>
-              <p className="mt-1 font-display text-2xl font-black text-white">
-                {enquiries.length}
-              </p>
-              <p className="mt-1 text-[10px] leading-4 text-slate-400">
-                Customer messages saved in the system.
-              </p>
-            </div>
+            </Link>
           </div>
         </motion.div>
       </section>
