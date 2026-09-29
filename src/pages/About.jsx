@@ -39,11 +39,11 @@ const values = [
 
 export default function About() {
     return (
-        <main className="overflow-hidden bg-slate-50 pt-20">
+        <main className="overflow-hidden bg-slate-50 pt-19">
             {/* =====================================================
                 HERO
             ===================================================== */}
-            <section className="relative isolate overflow-hidden bg-slate-950 px-4 py-14 text-white sm:px-6 sm:py-20 lg:px-8 lg:py-28">
+            <section className="relative isolate overflow-hidden bg-slate-950 px-4 pb-8 pt-15 text-white sm:px-6 sm:pb-16 sm:pt-28 lg:px-8 lg:pb-20">
                 {/* Background effects */}
                 <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-lime-400/15 blur-3xl sm:h-96 sm:w-96" />
                 <div className="pointer-events-none absolute -bottom-24 left-[20%] h-64 w-64 rounded-full bg-blue-500/15 blur-3xl sm:h-96 sm:w-96" />
@@ -57,16 +57,19 @@ export default function About() {
                     }}
                 />
 
-                <div className="relative mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.1fr_.9fr] lg:gap-14">
+                <div className="relative mx-auto grid max-w-7xl items-center gap-6 sm:gap-8 lg:grid-cols-[1.1fr_.9fr] lg:gap-10">
+
+                    {/* About Content */}
                     <div>
-                        <div className="inline-flex items-center gap-2 rounded-full border border-lime-300/20 bg-lime-300/10 px-3 py-2">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-lime-300/20 bg-lime-300/10 px-3 py-1.5 sm:py-2">
                             <span className="h-2 w-2 animate-pulse rounded-full bg-lime-300" />
+
                             <p className="text-[10px] font-black uppercase tracking-[.2em] text-lime-300 sm:text-xs">
                                 About {company.shortName}
                             </p>
                         </div>
 
-                        <h1 className="mt-5 font-display text-4xl font-black leading-[1.05] sm:text-6xl lg:text-7xl">
+                        <h1 className="mt-4 font-display text-3xl font-black leading-tight sm:mt-5 sm:text-5xl lg:text-6xl">
                             One company.
                             <br />
                             <span className="bg-gradient-to-r from-lime-300 via-yellow-300 to-orange-400 bg-clip-text text-transparent">
@@ -76,16 +79,17 @@ export default function About() {
                             More game time.
                         </h1>
 
-                        <p className="mt-5 max-w-2xl text-sm leading-6 text-slate-300 sm:mt-7 sm:text-lg sm:leading-8">
+                        <p className="mt-4 max-w-2xl text-xs leading-6 text-slate-300 sm:mt-5 sm:text-base sm:leading-7">
                             {company.description}
                         </p>
 
-                        <div className="mt-7 flex flex-wrap gap-3 sm:mt-9">
+                        <div className="mt-5 flex flex-wrap gap-2.5 sm:mt-7 sm:gap-3">
                             <Link
                                 to="/explore"
-                                className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-lime-400 to-yellow-300 px-5 py-3 text-sm font-black text-slate-950 shadow-lg shadow-lime-400/10 transition duration-300 hover:-translate-y-1 hover:shadow-lime-400/25 sm:px-6 sm:py-3.5 sm:text-base"
+                                className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-lime-400 to-yellow-300 px-4 py-2.5 text-xs font-black text-slate-950 shadow-lg shadow-lime-400/10 transition duration-300 hover:-translate-y-1 hover:shadow-lime-400/25 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm"
                             >
                                 Explore Our Turf
+
                                 <span className="transition-transform duration-300 group-hover:translate-x-1">
                                     →
                                 </span>
@@ -93,39 +97,42 @@ export default function About() {
 
                             <Link
                                 to="/contact"
-                                className="rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-bold text-white backdrop-blur transition duration-300 hover:border-sky-300/40 hover:bg-sky-400/10 sm:px-6 sm:py-3.5 sm:text-base"
+                                className="rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-xs font-bold text-white backdrop-blur transition duration-300 hover:border-sky-300/40 hover:bg-sky-400/10 sm:rounded-xl sm:px-5 sm:py-3 sm:text-sm"
                             >
                                 Contact Us
                             </Link>
                         </div>
                     </div>
 
-                    {/* Hero visual */}
-                    <div className="relative mx-auto w-full max-w-xl">
+                    {/* Hero Visual */}
+                    <div className="relative mx-auto mt-2 w-full max-w-xl lg:mt-0">
                         <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-lime-400/30 via-sky-400/20 to-orange-400/30 blur-xl" />
 
-                        <div className="relative overflow-hidden rounded-[1.5rem] border border-white/15 bg-slate-900 p-2 shadow-2xl sm:rounded-[2rem] sm:p-3">
+                        <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-slate-900 p-2 shadow-2xl sm:rounded-3xl sm:p-3">
                             <img
                                 src="/images/about-hero.jpg"
                                 alt="TurfZone sports facility"
-                                className="h-56 w-full rounded-[1.1rem] object-cover sm:h-80 sm:rounded-[1.5rem] lg:h-[390px]"
+                                className="h-48 w-full rounded-xl object-cover sm:h-64 sm:rounded-2xl lg:h-[300px]"
                             />
 
-                            <div className="absolute inset-x-2 bottom-2 rounded-b-[1.1rem] bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-transparent p-4 pt-16 sm:inset-x-3 sm:bottom-3 sm:rounded-b-[1.5rem] sm:p-6 sm:pt-20">
+                            <div className="absolute inset-x-2 bottom-2 rounded-b-xl bg-gradient-to-t from-slate-950/95 via-slate-950/65 to-transparent p-3 pt-12 sm:inset-x-3 sm:bottom-3 sm:rounded-b-2xl sm:p-5 sm:pt-16">
                                 <p className="text-[10px] font-black uppercase tracking-[.2em] text-lime-300 sm:text-xs">
                                     Your game starts here
                                 </p>
-                                <p className="mt-1 font-display text-xl font-bold text-white sm:text-2xl">
+
+                                <p className="mt-1 font-display text-lg font-bold text-white sm:text-2xl">
                                     Play. Book. Enjoy.
                                 </p>
                             </div>
                         </div>
 
-                        <div className="absolute -bottom-4 -left-2 rounded-xl border border-lime-300/20 bg-slate-900/95 px-3 py-2 shadow-xl sm:-left-5 sm:px-5 sm:py-3">
+                        {/* Floating Badge */}
+                        <div className="absolute -bottom-3 -left-1 rounded-xl border border-lime-300/20 bg-slate-900/95 px-3 py-2 shadow-xl sm:-left-4 sm:px-4 sm:py-3">
                             <p className="text-[10px] font-semibold text-slate-400 sm:text-xs">
                                 Made for players
                             </p>
-                            <p className="text-sm font-black text-lime-300 sm:text-base">
+
+                            <p className="text-xs font-black text-lime-300 sm:text-sm">
                                 Every game matters
                             </p>
                         </div>
@@ -136,37 +143,7 @@ export default function About() {
             {/* =====================================================
                 INTRO STATS
             ===================================================== */}
-            <section className="relative z-10 -mt-1 bg-slate-950 px-3 pb-8 sm:px-6 sm:pb-12 lg:px-8">
-                <div className="mx-auto grid max-w-7xl grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-                    <StatCard
-                        number="01"
-                        title="Main Facility"
-                        color="text-lime-300"
-                        border="border-lime-400/20"
-                    />
-
-                    <StatCard
-                        number="5+"
-                        title="Sports Options"
-                        color="text-sky-300"
-                        border="border-sky-400/20"
-                    />
-
-                    <StatCard
-                        number="5000+"
-                        title="Demo Player Visits"
-                        color="text-orange-300"
-                        border="border-orange-400/20"
-                    />
-
-                    <StatCard
-                        number="06–23"
-                        title="Daily Open Hours"
-                        color="text-fuchsia-300"
-                        border="border-fuchsia-400/20"
-                    />
-                </div>
-            </section>
+            
 
             {/* =====================================================
                 MISSION AND VISION
@@ -288,6 +265,38 @@ export default function About() {
             }
         }
     `}</style>
+            </section>
+
+            <section className="relative z-10 -mt-1 bg-slate-950 px-3 pb-8 sm:px-6 sm:pb-12 lg:px-8 pt-10">
+                <div className="mx-auto grid max-w-7xl grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+                    <StatCard
+                        number="01"
+                        title="Main Facility"
+                        color="text-lime-300"
+                        border="border-lime-400/20"
+                    />
+
+                    <StatCard
+                        number="5+"
+                        title="Sports Options"
+                        color="text-sky-300"
+                        border="border-sky-400/20"
+                    />
+
+                    <StatCard
+                        number="5000+"
+                        title="Demo Player Visits"
+                        color="text-orange-300"
+                        border="border-orange-400/20"
+                    />
+
+                    <StatCard
+                        number="06–23"
+                        title="Daily Open Hours"
+                        color="text-fuchsia-300"
+                        border="border-fuchsia-400/20"
+                    />
+                </div>
             </section>
 
             {/* =====================================================
