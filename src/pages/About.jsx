@@ -39,7 +39,7 @@ const values = [
 
 export default function About() {
     return (
-        <main className="overflow-hidden bg-slate-50 pt-19">
+        <main className="overflow-hidden bg-slate-50 pt-19 sm:20">
             {/* =====================================================
                 HERO
             ===================================================== */}
