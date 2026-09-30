@@ -7,6 +7,7 @@ import {
     Route,
     Navigate,
     useLocation,
+    useNavigate,
 } from "react-router-dom";
 
 import { AppProvider, useApp } from "./context/AppContext";
@@ -34,6 +35,59 @@ import ManageBookings from "./admin/ManageBookings";
 import ManageEnquiries from "./admin/ManageEnquiries";
 
 /* =====================================================
+   REFRESH / DIRECT URL REDIRECT
+===================================================== */
+
+function RefreshRedirect() {
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Only check on the first page load.
+        // Normal React Router navigation should not trigger this.
+        const navigationEntry =
+            performance.getEntriesByType("navigation")[0];
+
+        const isInitialPageLoad =
+            !sessionStorage.getItem("turfzone_app_loaded");
+
+        const isReload =
+            navigationEntry?.type === "reload";
+
+        /*
+         * If:
+         * - this is the first browser load/reload
+         * - AND current URL is not Home
+         *
+         * redirect to Home.
+         */
+        if (
+            (isInitialPageLoad || isReload) &&
+            location.pathname !== "/"
+        ) {
+            sessionStorage.setItem(
+                "turfzone_app_loaded",
+                "true"
+            );
+
+            navigate("/", {
+                replace: true,
+            });
+
+            return;
+        }
+
+        // Mark application as loaded
+        sessionStorage.setItem(
+            "turfzone_app_loaded",
+            "true"
+        );
+    }, []);
+
+    return null;
+}
+
+/* =====================================================
    PROTECTED ADMIN ROUTE
 ===================================================== */
 
@@ -43,7 +97,10 @@ function Protected() {
     return admin.loggedIn ? (
         <AdminLayout />
     ) : (
-        <Navigate to="/admin/login" replace />
+        <Navigate
+            to="/admin/login"
+            replace
+        />
     );
 }
 
@@ -53,9 +110,13 @@ function Protected() {
 
 function Shell() {
     const loc = useLocation();
-    const isAdmin = loc.pathname.startsWith("/admin");
 
-    // Scroll to the top whenever the route changes
+    const isAdmin =
+        loc.pathname.startsWith("/admin");
+
+    /*
+     * Scroll to top whenever route changes.
+     */
     useEffect(() => {
         window.scrollTo({
             top: 0,
@@ -66,11 +127,22 @@ function Shell() {
 
     return (
         <>
+            {/* Refresh/direct URL handler */}
+            <RefreshRedirect />
+
+            {/* Customer Navbar */}
             {!isAdmin && <Navbar />}
 
             <Routes>
-                {/* Customer Pages */}
-                <Route path="/" element={<Home />} />
+
+                {/* =================================================
+                    CUSTOMER PAGES
+                ================================================= */}
+
+                <Route
+                    path="/"
+                    element={<Home />}
+                />
 
                 <Route
                     path="/explore"
@@ -107,13 +179,19 @@ function Shell() {
                     element={<Contact />}
                 />
 
-                {/* Admin Login */}
+                {/* =================================================
+                    ADMIN LOGIN
+                ================================================= */}
+
                 <Route
                     path="/admin/login"
                     element={<AdminLogin />}
                 />
 
-                {/* Protected Admin Routes */}
+                {/* =================================================
+                    PROTECTED ADMIN
+                ================================================= */}
+
                 <Route
                     path="/admin"
                     element={<Protected />}
@@ -139,14 +217,21 @@ function Shell() {
                     />
                 </Route>
 
-                {/* 404 Page */}
+                {/* =================================================
+                    404
+                ================================================= */}
+
                 <Route
                     path="*"
                     element={<NotFound />}
                 />
+
             </Routes>
 
-            {/* Customer Footer */}
+            {/* =================================================
+                CUSTOMER FOOTER
+            ================================================= */}
+
             {!isAdmin && (
                 <>
                     <Footer />
@@ -158,23 +243,31 @@ function Shell() {
 }
 
 /* =====================================================
-   APP COMPONENT WITH LOADING SCREEN
+   APP COMPONENT
 ===================================================== */
 
 export default function App() {
-    const [isLoading, setIsLoading] = useState(true);
+
+    const [isLoading, setIsLoading] =
+        useState(true);
 
     return (
         <BrowserRouter>
+
             <AppProvider>
+
                 {isLoading ? (
                     <LoadingScreen
-                        onComplete={() => setIsLoading(false)}
+                        onComplete={() =>
+                            setIsLoading(false)
+                        }
                     />
                 ) : (
                     <Shell />
                 )}
+
             </AppProvider>
+
         </BrowserRouter>
     );
 }
